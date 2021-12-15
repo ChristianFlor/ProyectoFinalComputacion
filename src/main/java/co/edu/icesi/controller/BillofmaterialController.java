@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import co.edu.icesi.businessdelegate.BusinessDelegate;
 import co.edu.icesi.model.Add;
 import co.edu.icesi.model.Billofmaterial;
-import co.edu.icesi.model.Productreview;
 
 @Controller
 @RequestMapping("/billofmaterials")
