@@ -187,6 +187,18 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
 		return template.getForObject(baseurl + "/productvendorRest/view/" + id, Productvendor.class);
 	}
+	
+	@Override
+	public void editProductvendor(Integer id, Productvendor productvendor) {
+		HttpEntity<Productvendor> request = new HttpEntity<>(productvendor);
+
+		template.put(baseurl + "/productvendorRest/edit/" + id, request, Productvendor.class);
+	}
+	
+	@Override
+	public void deleteProductvendor(Productvendor productvendor) {
+		template.delete(baseurl + "/productvendorRest/delete/" + productvendor.getId());
+	}
 	// VENDOR
 	@Override
 	public List<Vendor> showVendorList() {

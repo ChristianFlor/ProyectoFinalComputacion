@@ -31,22 +31,22 @@ public class ProductVendorController {
 	@Autowired
 	BusinessDelegate delegate;
 	
-	private ProductService productService;
-	private UnitMeasureService unitmeasureService;
-	private BusinessEntityService businessentityService;
-	private VendorService vendorService;
-	private ProductVendorService productvendorService;
-
-	@Autowired
-	public ProductVendorController(ProductService productService, UnitMeasureService unitmeasureService,
-			BusinessEntityService businessentityService, VendorService vendorService,
-			ProductVendorService productvendorService) {
-		this.productService = productService;
-		this.unitmeasureService = unitmeasureService;
-		this.businessentityService = businessentityService;
-		this.vendorService = vendorService;
-		this.productvendorService = productvendorService;
-	}
+//	private ProductService productService;
+//	private UnitMeasureService unitmeasureService;
+//	private BusinessEntityService businessentityService;
+//	private VendorService vendorService;
+//	private ProductVendorService productvendorService;
+//
+//	@Autowired
+//	public ProductVendorController(ProductService productService, UnitMeasureService unitmeasureService,
+//			BusinessEntityService businessentityService, VendorService vendorService,
+//			ProductVendorService productvendorService) {
+//		this.productService = productService;
+//		this.unitmeasureService = unitmeasureService;
+//		this.businessentityService = businessentityService;
+//		this.vendorService = vendorService;
+//		this.productvendorService = productvendorService;
+//	}
 
 	@GetMapping("")
 	public String index(Model model) {
@@ -56,7 +56,7 @@ public class ProductVendorController {
 
 	@GetMapping("/edit/{id}")
 	public String editProductvendor(Model model, @PathVariable("id") Integer id) {
-		model.addAttribute("productvendor", productvendorService.findById(id).get());
+		model.addAttribute("productvendor", delegate.getProductvendor(id));
 		model.addAttribute("products", delegate.showProductList());
 		model.addAttribute("vendors", delegate.showVendorList());
 		model.addAttribute("unitmeasures",delegate.showUnitmeasureList());
@@ -82,8 +82,9 @@ public class ProductVendorController {
 			productvendor.setProductid(productvendor.getProductid());
 			productvendor.setVendor(productvendor.getVendor());
 
-			productvendorService.edit(productvendor, productvendor.getUnitmeasurecode(), productvendor.getProductid(),
-					productvendor.getVendor().getBusinessentityid());
+			delegate.editProductvendor(id, productvendor);
+//			productvendorService.edit(productvendor, productvendor.getUnitmeasurecode(), productvendor.getProductid(),
+//					productvendor.getVendor().getBusinessentityid());
 
 		}
 		return "redirect:/product-vendors";
@@ -122,14 +123,15 @@ public class ProductVendorController {
 	
 	@GetMapping("/delete/{id}")
 	public String deleteProductvendor(@PathVariable("id") Integer id, Model model) {
-		Productvendor productvendor = productvendorService.findById(id).get();
-		productvendorService.delete(productvendor);
+		Productvendor productvendor =delegate.getProductvendor(id);
+		delegate.deleteProductvendor(productvendor);
+//		productvendorService.delete(productvendor);
 		model.addAttribute("productvendors",delegate.showProductvendorList());
 		return "product-vendors/index";
 	}
 	@GetMapping("/{id}")
 	public String getProductvendor(Model model, @PathVariable("id") Integer id) {
-		Productvendor productvendor = productvendorService.findById(id).get();
+		Productvendor productvendor = delegate.getProductvendor(id);
 
 		model.addAttribute("productvendor", productvendor);
 

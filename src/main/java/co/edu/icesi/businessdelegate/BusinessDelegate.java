@@ -66,6 +66,10 @@ public interface BusinessDelegate {
 
 	public Productvendor getProductvendor(Integer id);
 
+	public void editProductvendor(Integer id, Productvendor productvendor);
+
+	public void deleteProductvendor(Productvendor productvendor);
+
 	// VENDOR
 	public List<Vendor> showVendorList();
 
