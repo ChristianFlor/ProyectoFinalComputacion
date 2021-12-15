@@ -8,8 +8,10 @@ import co.edu.icesi.model.Document;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productcategory;
 import co.edu.icesi.model.Productsubcategory;
+import co.edu.icesi.model.Productvendor;
 import co.edu.icesi.model.Transactionhistory;
 import co.edu.icesi.model.Unitmeasure;
+import co.edu.icesi.model.Vendor;
 
 public interface BusinessDelegate {
 
@@ -56,4 +58,15 @@ public interface BusinessDelegate {
 	public void editDocument(long id, Document doc);
 
 	public void deleteDocument(Document doc);
+
+	// PRODUCT VENDOR
+	public List<Productvendor> showProductvendorList();
+
+	public Productvendor addProductvendor(Productvendor pv);
+
+	public Productvendor getProductvendor(Integer id);
+
+	// VENDOR
+	public List<Vendor> showVendorList();
+
 }

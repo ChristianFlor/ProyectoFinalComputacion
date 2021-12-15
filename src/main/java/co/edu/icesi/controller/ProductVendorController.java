@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import co.edu.icesi.businessdelegate.BusinessDelegate;
 import co.edu.icesi.model.Add;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productvendor;
@@ -27,6 +28,9 @@ import co.edu.icesi.services.VendorService;
 @RequestMapping("product-vendors")
 public class ProductVendorController {
 
+	@Autowired
+	BusinessDelegate delegate;
+	
 	private ProductService productService;
 	private UnitMeasureService unitmeasureService;
 	private BusinessEntityService businessentityService;
@@ -46,16 +50,16 @@ public class ProductVendorController {
 
 	@GetMapping("")
 	public String index(Model model) {
-		model.addAttribute("productvendors", productvendorService.findAll());
+		model.addAttribute("productvendors", delegate.showProductvendorList());
 		return "/product-vendors/index";
 	}
 
 	@GetMapping("/edit/{id}")
 	public String editProductvendor(Model model, @PathVariable("id") Integer id) {
 		model.addAttribute("productvendor", productvendorService.findById(id).get());
-		model.addAttribute("products", productService.findAll());
-		model.addAttribute("vendors", vendorService.findAll());
-		model.addAttribute("unitmeasures", unitmeasureService.findAll());
+		model.addAttribute("products", delegate.showProductList());
+		model.addAttribute("vendors", delegate.showVendorList());
+		model.addAttribute("unitmeasures",delegate.showUnitmeasureList());
 		return "product-vendors/edit";
 	}
 
@@ -67,9 +71,9 @@ public class ProductVendorController {
 		if (!action.equals("Cancel")) {
 
 			if (result.hasErrors()) {
-				model.addAttribute("products", productService.findAll());
-				model.addAttribute("vendors", vendorService.findAll());
-				model.addAttribute("unitmeasures", unitmeasureService.findAll());
+				model.addAttribute("products", delegate.showProductList());
+				model.addAttribute("vendors", delegate.showVendorList());
+				model.addAttribute("unitmeasures",delegate.showUnitmeasureList());
 
 				return "product-vendors/edit";
 			}
@@ -87,9 +91,9 @@ public class ProductVendorController {
 	@GetMapping("/add")
 	public String addProductvendor(Model model) {
 		model.addAttribute("productvendor", new Productvendor());
-		model.addAttribute("products", productService.findAll());
-		model.addAttribute("vendors", vendorService.findAll());
-		model.addAttribute("unitmeasures", unitmeasureService.findAll());
+		model.addAttribute("products", delegate.showProductList());
+		model.addAttribute("vendors", delegate.showVendorList());
+		model.addAttribute("unitmeasures",delegate.showUnitmeasureList());
 		return "product-vendors/add";
 	}
 
@@ -102,15 +106,16 @@ public class ProductVendorController {
 				result.addError(new ObjectError("sellstartdate", "Sell start date should be before sell end date"));
 			}
 			if (result.hasErrors()) {
-				model.addAttribute("products", productService.findAll());
-				model.addAttribute("vendors", vendorService.findAll());
-				model.addAttribute("unitmeasures", unitmeasureService.findAll());
+				model.addAttribute("products", delegate.showProductList());
+				model.addAttribute("vendors", delegate.showVendorList());
+				model.addAttribute("unitmeasures",delegate.showUnitmeasureList());
 				return "product-vendors/add";
 			}
 			productvendor.setProductid(productvendor.getProductid());
 			productvendor.setVendor(productvendor.getVendor());
-			productvendorService.save(productvendor, productvendor.getUnitmeasurecode(), productvendor.getProductid(),
-					productvendor.getVendor().getBusinessentityid());
+//			productvendorService.save(productvendor, productvendor.getUnitmeasurecode(), productvendor.getProductid(),
+//					productvendor.getVendor().getBusinessentityid());
+			delegate.addProductvendor(productvendor);
 		}
 		return "redirect:/product-vendors";
 	}
@@ -119,7 +124,7 @@ public class ProductVendorController {
 	public String deleteProductvendor(@PathVariable("id") Integer id, Model model) {
 		Productvendor productvendor = productvendorService.findById(id).get();
 		productvendorService.delete(productvendor);
-		model.addAttribute("productvendors", productvendorService.findAll());
+		model.addAttribute("productvendors",delegate.showProductvendorList());
 		return "product-vendors/index";
 	}
 	@GetMapping("/{id}")

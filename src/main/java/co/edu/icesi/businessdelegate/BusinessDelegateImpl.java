@@ -16,8 +16,10 @@ import co.edu.icesi.model.Document;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productcategory;
 import co.edu.icesi.model.Productsubcategory;
+import co.edu.icesi.model.Productvendor;
 import co.edu.icesi.model.Transactionhistory;
 import co.edu.icesi.model.Unitmeasure;
+import co.edu.icesi.model.Vendor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -164,4 +166,32 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public void deleteDocument(Document doc) {
 		template.delete(baseurl + "/documentRest/delete/" + doc.getDocumentnode());
 	}
+	
+	//PRODUCT VENDOR
+	@Override
+	public List<Productvendor> showProductvendorList() {
+		Productvendor[] productvendorarray = template.getForObject(baseurl + "/productvendorRest/list",
+				Productvendor[].class);
+		return Arrays.asList(productvendorarray);
+	}
+	
+	@Override
+	public Productvendor addProductvendor(Productvendor pv) {
+		HttpEntity<Productvendor> request = new HttpEntity<>(pv);
+		return template.postForObject(baseurl + "/productvendorRest/addProductvendor/", request,
+				Productvendor.class);
+	}
+	
+	@Override
+	public Productvendor getProductvendor(Integer id) {
+
+		return template.getForObject(baseurl + "/productvendorRest/view/" + id, Productvendor.class);
+	}
+	// VENDOR
+	@Override
+	public List<Vendor> showVendorList() {
+		Vendor[] vendorarray = template.getForObject(baseurl + "/vendorRest/list", Vendor[].class);
+		return Arrays.asList(vendorarray);
+	}
+
 }

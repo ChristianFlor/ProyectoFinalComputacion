@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the vendor database table.
  *
@@ -41,10 +43,12 @@ public class Vendor implements Serializable {
 	private String purchasingwebserviceurl;
 
 	// bi-directional many-to-one association to Productvendor
+	@JsonIgnore
 	@OneToMany(mappedBy = "vendor")
 	private List<Productvendor> productvendors;
 
 	// bi-directional many-to-one association to Purchaseorderheader
+	@JsonIgnore
 	@OneToMany(mappedBy = "vendor")
 	private List<Purchaseorderheader> purchaseorderheaders;
 
