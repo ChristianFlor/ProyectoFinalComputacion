@@ -1,6 +1,7 @@
 package co.edu.icesi.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,11 @@ public class DocumentRestController {
 	
 	@PutMapping("/documentRest/edit/{id}")
 	public void editDocument(@RequestBody Document document) {
-		
+		documentService.editCorrect(document, document.getProduct().getProductid());
+	}
+	
+	@DeleteMapping("/documentRest/delete/{id}")
+	public void deleteDocument(@PathVariable("id") long id) {
+		documentService.delete(documentService.findById(id));
 	}
 }

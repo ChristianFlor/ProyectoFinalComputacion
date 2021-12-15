@@ -159,4 +159,9 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
 		template.put(baseurl + "/documentRest/edit/" + id, request, Document.class);
 	}
+	
+	@Override
+	public void deleteDocument(Document doc) {
+		template.delete(baseurl + "/documentRest/delete/" + doc.getDocumentnode());
+	}
 }

@@ -54,4 +54,6 @@ public interface BusinessDelegate {
 	public Document getDocument(long id);
 
 	public void editDocument(long id, Document doc);
+
+	public void deleteDocument(Document doc);
 }

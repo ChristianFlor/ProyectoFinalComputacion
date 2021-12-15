@@ -64,7 +64,8 @@ public class DocumentController {
 			}
 
 			doc.setProduct(doc.getProduct());
-			documentService.editCorrect(doc, doc.getProduct().getProductid());
+			delegate.editDocument(id, doc);
+//			documentService.editCorrect(doc, doc.getProduct().getProductid());
 		}
 		return "redirect:/documents";
 	}
@@ -82,7 +83,7 @@ public class DocumentController {
 
 		if (!action.equals("Cancel")) {
 			if (result.hasErrors()) {
-				model.addAttribute("products", productService.findAll());
+				model.addAttribute("products",delegate.showProductList());
 				return "/documents/add";
 			}
 			doc.setProduct(doc.getProduct());
@@ -97,8 +98,9 @@ public class DocumentController {
 	@GetMapping("/delete/{id}")
 	public String deleteUser(@PathVariable("id") long id, Model model) {
 		Document document = delegate.getDocument(id);
-		documentService.delete(document);
-		model.addAttribute("documents", documentService.findAll());
+		delegate.deleteDocument(document);
+//		documentService.delete(document);
+		model.addAttribute("documents", delegate.showDocumentList());
 		return "documents/index";
 	}
 
