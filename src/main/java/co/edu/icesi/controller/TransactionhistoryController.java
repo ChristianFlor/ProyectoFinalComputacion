@@ -52,7 +52,7 @@ public class TransactionhistoryController {
 	@GetMapping("/edit/{id}")
 	public String editTransactionhistory(Model model, @PathVariable("id") Integer id) {
 
-		model.addAttribute("trh", delegate.showTransactionhistoryList());
+		model.addAttribute("trh", delegate.getTransactionhistory(id));
 		model.addAttribute("products", delegate.showProductList());
 		return "transaction-histories/edit";
 	}
@@ -65,7 +65,7 @@ public class TransactionhistoryController {
 		if (!action.equals("Cancel")) {
 			
 			if (result.hasErrors()) {
-				model.addAttribute("products", productService.findAll());
+				model.addAttribute("products", delegate.showProductList());
 
 				return "transaction-histories/edit";
 			}
@@ -79,7 +79,7 @@ public class TransactionhistoryController {
 	@GetMapping("/add")
 	public String addTransactionhistory(Model model) {
 		model.addAttribute("trh", new Transactionhistory());
-		model.addAttribute("products", productService.findAll());
+		model.addAttribute("products", delegate.showProductList());
 
 		return "/transaction-histories/add";
 	}

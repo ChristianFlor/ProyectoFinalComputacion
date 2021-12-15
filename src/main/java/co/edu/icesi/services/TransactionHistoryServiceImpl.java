@@ -173,7 +173,7 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 			thentity.setActualcost(transactionhistory.getActualcost());
 			thentity.setModifieddate(transactionhistory.getModifieddate());
 			thentity.setProduct(product);
-			transactionhistoryDAO.update(transactionhistory);
+			transactionhistoryDAO.update(thentity);
 		}
 	}
 
