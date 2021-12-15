@@ -90,4 +90,10 @@ public interface BusinessDelegate {
 	public List<Billofmaterial> showBilofmaterialList();
 
 	public Billofmaterial addBillofmaterial(Billofmaterial billofmaterial);
+
+	public Billofmaterial getBillofmaterial(Integer id);
+	
+	public void editBillofmaterial(Integer id, Billofmaterial billofmaterial);
+	
+	public void deleteBillofmaterial(Billofmaterial billofmaterial);
 }

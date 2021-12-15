@@ -252,5 +252,23 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 		HttpEntity<Billofmaterial> request = new HttpEntity<>(billofmaterial);
 		return template.postForObject(baseurl + "/billofmaterialRest/addbillomaterial/", request, Billofmaterial.class);
 	}
+	
+	@Override
+	public Billofmaterial getBillofmaterial(Integer id) {
+
+		return template.getForObject(baseurl + "/billofmaterialRest/view/" + id, Billofmaterial.class);
+	}
+	
+	@Override
+	public void editBillofmaterial(Integer id, Billofmaterial billofmaterial) {
+		HttpEntity<Billofmaterial> request = new HttpEntity<>(billofmaterial);
+
+		template.put(baseurl + "/billofmaterialRest/edit/" + id, request, Billofmaterial.class);
+	}
+	
+	@Override
+	public void deleteBillofmaterial(Billofmaterial billofmaterial) {
+		template.delete(baseurl + "/billofmaterialRest/delete/" + billofmaterial.getBillofmaterialsid());
+	}
 }
 
