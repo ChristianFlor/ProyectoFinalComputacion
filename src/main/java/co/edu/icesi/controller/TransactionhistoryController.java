@@ -52,14 +52,14 @@ public class TransactionhistoryController {
 	@GetMapping("/edit/{id}")
 	public String editTransactionhistory(Model model, @PathVariable("id") Integer id) {
 
-		model.addAttribute("trh", transactionhistoryService.findById(id));
-		model.addAttribute("products", productService.findAll());
+		model.addAttribute("trh", delegate.showTransactionhistoryList());
+		model.addAttribute("products", delegate.showProductList());
 		return "transaction-histories/edit";
 	}
 
 	@PostMapping("/edit/{id}")
-	public String postEditProduct(@ModelAttribute("trh") @Validated(Add.class) Transactionhistory trh,
-			BindingResult result, Model model, @PathVariable("id") long id,
+	public String postEditTransactionhistory(@ModelAttribute("trh") @Validated(Add.class) Transactionhistory trh,
+			BindingResult result, Model model, @PathVariable("id") Integer id,
 			@RequestParam(value = "action", required = true) String action) {
 
 		if (!action.equals("Cancel")) {
@@ -70,7 +70,8 @@ public class TransactionhistoryController {
 				return "transaction-histories/edit";
 			}
 			trh.setProduct(trh.getProduct());
-			transactionhistoryService.editCorrect(trh, trh.getProduct().getProductid());
+//			transactionhistoryService.editCorrect(trh, trh.getProduct().getProductid());
+			delegate.editTransactionhistory(id, trh);
 		}
 		return "redirect:/transaction-histories";
 	}
@@ -89,7 +90,7 @@ public class TransactionhistoryController {
 
 		if (!action.equals("Cancel")) {
 			if (result.hasErrors()) {
-				model.addAttribute("products", productService.findAll());
+				model.addAttribute("products", delegate.showProductList());
 				return "/transaction-histories/add";
 			}
 			trh.setProduct(trh.getProduct());
@@ -101,9 +102,10 @@ public class TransactionhistoryController {
 
 	@GetMapping("/delete/{id}")
 	public String deleteTransactionhistory(@PathVariable("id") Integer id, Model model) {
-		Transactionhistory trh = transactionhistoryService.findById(id);
-		transactionhistoryService.delete(trh);
-		model.addAttribute("transactionhistories", transactionhistoryService.findAll());
+		Transactionhistory trh =delegate.getTransactionhistory(id);
+		delegate.deleteTransactionhistory(trh);
+//		transactionhistoryService.delete(trh);
+		model.addAttribute("transactionhistories", delegate.showTransactionhistoryList());
 		return "redirect:/transaction-histories";
 	}
 	

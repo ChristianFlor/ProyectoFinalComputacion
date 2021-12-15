@@ -40,4 +40,8 @@ public interface BusinessDelegate {
 	public Transactionhistory addTransactionhistory(Transactionhistory th);
 
 	public Transactionhistory getTransactionhistory(Integer id);
+
+	public void editTransactionhistory(Integer id, Transactionhistory th);
+
+	public void deleteTransactionhistory(Transactionhistory th);
 }

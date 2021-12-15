@@ -78,6 +78,7 @@ public class ProductController {
 				model.addAttribute("unitmeasures", delegate.showUnitmeasureList());
 				return "products/edit";
 			}
+			
 			delegate.editProduct(id,product);
 		}
 		return "redirect:/products";

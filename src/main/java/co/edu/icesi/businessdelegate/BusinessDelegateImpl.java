@@ -72,6 +72,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 		template.put(baseurl + "/productsRest/edit/" + id, request, Product.class);
 	}
 
+	@Override
 	public void deleteProduct(Product p) {
 		template.delete(baseurl + "/productsRest/delete/" + p.getProductid());
 	}
@@ -117,5 +118,17 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public Transactionhistory getTransactionhistory(Integer id) {
 
 		return template.getForObject(baseurl + "/transactionhistoryRest/view/" + id, Transactionhistory.class);
+	}
+	
+	@Override
+	public void editTransactionhistory(Integer id, Transactionhistory th) {
+		HttpEntity<Transactionhistory> request = new HttpEntity<>(th);
+
+		template.put(baseurl + "/transactionhistoryRest/edit/" + id, request, Transactionhistory.class);
+	}
+	
+	@Override
+	public void deleteTransactionhistory(Transactionhistory th) {
+		template.delete(baseurl + "/transactionhistoryRest/delete/" + th.getTransactionid());
 	}
 }
