@@ -51,8 +51,8 @@
 			<tbody>
 				<tr class="align-items-center"
 					th:each="billofmaterial : ${billofmaterials}"
-					th:value="${billofmaterials}">
-					<td th:text="${billofmaterials.billofmaterialid}"></td>
+					th:value="${billofmaterial}">
+					<td th:text="${billofmaterial.billofmaterialsid}"></td>
 					<td><a
 						th:text="${billofmaterial.product1.productid} + ': ' + ${billofmaterial.product1.name}"
 						th:href="@{/products/{id}(id=${billofmaterial.product1.productid})}">
@@ -61,15 +61,15 @@
 
 
 					<td><a
-						th:href="@{/billofmaterials/edit/{id}(id=${billofmaterial.billofmaterialid})}">
+						th:href="@{/billofmaterials/edit/{id}(id=${billofmaterial.billofmaterialsid})}">
 							<i class="fas fa-user-edit"></i>
 					</a></td>
 					<td><a
-						th:href="@{/billofmaterials/delete/{id}(id=${billofmaterial.billofmaterialid})}">
+						th:href="@{/billofmaterials/delete/{id}(id=${billofmaterial.billofmaterialsid})}">
 							<i class="fas fa-user-times"></i>
 					</a></td>
 					<td><a
-						th:href="@{/billofmaterials/{id}(id=${billofmaterial.billofmaterialid})}">
+						th:href="@{/billofmaterials/{id}(id=${billofmaterial.billofmaterialsid})}">
 							<i class="far fa-eye"></i>
 					</a></td>
 				</tr>

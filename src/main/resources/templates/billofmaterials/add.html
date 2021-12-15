@@ -36,7 +36,7 @@
             </div>
              <div class="form-group col-md-6">
                 <label for="bomlevel">Level</label>
-                <input type="text" name="bomlevel" id="bomlevel" class="form-control" th:field="*{bomlevel}" th:value="${billofmaterial.bomlevel}"/>
+                <input type="number" name="bomlevel" id="bomlevel" class="form-control" th:field="*{bomlevel}" th:value="${billofmaterial.bomlevel}"/>
                 <span th:if="${#fields.hasErrors('bomlevel')}" th:errors="*{bomlevel}" class="text-danger"></span>
             </div>
           
