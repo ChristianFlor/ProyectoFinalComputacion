@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.client.RestTemplate;
 
+import co.edu.icesi.model.Document;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productcategory;
 import co.edu.icesi.model.Productsubcategory;
@@ -44,4 +45,13 @@ public interface BusinessDelegate {
 	public void editTransactionhistory(Integer id, Transactionhistory th);
 
 	public void deleteTransactionhistory(Transactionhistory th);
+
+	// DOCUMENT
+	public List<Document> showDocumentList();
+
+	public Document addDocument(Document doc);
+
+	public Document getDocument(long id);
+
+	public void editDocument(long id, Document doc);
 }

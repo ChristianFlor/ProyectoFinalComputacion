@@ -16,6 +16,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the document database table.
  *
@@ -62,9 +64,11 @@ public class Document implements Serializable {
 	private Product product;
 
 	// bi-directional many-to-one association to Productdocument
+	@JsonIgnore
 	@OneToMany(mappedBy = "document", cascade=CascadeType.REMOVE)
 	private List<Productdocument> productdocuments;
 
+	
 	public Document() {
 	}
 
@@ -75,6 +79,9 @@ public class Document implements Serializable {
 		return productdocument;
 	}
 
+	public void setProductid(Integer id) {
+		this.product.setProductid(id);
+	}
 	public Integer getChangenumber() {
 		return this.changenumber;
 	}

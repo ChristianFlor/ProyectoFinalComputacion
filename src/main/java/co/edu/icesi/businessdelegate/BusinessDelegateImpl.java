@@ -12,6 +12,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import co.edu.icesi.model.Document;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productcategory;
 import co.edu.icesi.model.Productsubcategory;
@@ -130,5 +131,32 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	@Override
 	public void deleteTransactionhistory(Transactionhistory th) {
 		template.delete(baseurl + "/transactionhistoryRest/delete/" + th.getTransactionid());
+	}
+	
+	// DOCUMENT
+	@Override
+	public List<Document> showDocumentList() {
+		Document[] documentarray = template.getForObject(baseurl + "/documentRest/list",
+				Document[].class);
+		return Arrays.asList(documentarray);
+	}
+	
+	@Override
+	public Document addDocument(Document doc) {
+		HttpEntity<Document> request = new HttpEntity<>(doc);
+		return template.postForObject(baseurl + "/documentRest/addDocument/", request,
+				Document.class);
+	}
+	@Override
+	public Document getDocument(long id) {
+
+		return template.getForObject(baseurl + "/documentRest/view/" + id, Document.class);
+	}
+	
+	@Override
+	public void editDocument(long id, Document doc) {
+		HttpEntity<Document> request = new HttpEntity<>(doc);
+
+		template.put(baseurl + "/documentRest/edit/" + id, request, Document.class);
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import co.edu.icesi.businessdelegate.BusinessDelegate;
 import co.edu.icesi.model.Add;
 import co.edu.icesi.model.Document;
 import co.edu.icesi.model.Product;
@@ -23,6 +24,9 @@ import co.edu.icesi.services.ProductdocumentService;
 @RequestMapping("/documents")
 public class DocumentController {
 
+	@Autowired
+	BusinessDelegate delegate;
+	
 	private DocumentService documentService;
 	private ProductService productService;
 	private ProductdocumentService productdocumentService;
@@ -37,15 +41,15 @@ public class DocumentController {
 
 	@GetMapping("")
 	public String documentIndex(Model model) {
-		model.addAttribute("documents", documentService.findAll());
+		model.addAttribute("documents", delegate.showDocumentList());
 		
 		return "documents/index";
 	}
 
 	@GetMapping("/edit/{id}")
 	public String editDocument(Model model, @PathVariable("id") long id) {
-		model.addAttribute("doc", documentService.findById(id));
-		model.addAttribute("products", productService.findAll());
+		model.addAttribute("doc", delegate.getDocument(id));
+		model.addAttribute("products", delegate.showProductList());
 		return "documents/edit";
 	}
 
@@ -55,7 +59,7 @@ public class DocumentController {
 
 		if (!action.equals("Cancel")) {
 			if (result.hasErrors()) {
-				model.addAttribute("products", productService.findAll());
+				model.addAttribute("products", delegate.showProductList());
 				return "documents/edit";
 			}
 
@@ -67,7 +71,7 @@ public class DocumentController {
 	@GetMapping("/add")
 	public String addDocument(Model model) {
 		model.addAttribute("doc", new Document());
-		model.addAttribute("products", productService.findAll());
+		model.addAttribute("products", delegate.showProductList());
 
 		return "/documents/add";
 	}
@@ -82,14 +86,17 @@ public class DocumentController {
 				return "/documents/add";
 			}
 			doc.setProduct(doc.getProduct());
-			documentService.saveCorrect(doc, doc.getProduct().getProductid());
+			doc.setProduct(doc.getProduct());
+			
+			delegate.addDocument(doc);
+//			documentService.saveCorrect(doc, doc.getProduct().getProductid());
 		}
 		return "redirect:/documents";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String deleteUser(@PathVariable("id") long id, Model model) {
-		Document document = documentService.findById(id);
+		Document document = delegate.getDocument(id);
 		documentService.delete(document);
 		model.addAttribute("documents", documentService.findAll());
 		return "documents/index";
@@ -97,7 +104,7 @@ public class DocumentController {
 
 	@GetMapping("/{id}")
 	public String getProduct(Model model, @PathVariable("id") long id) {
-		Document document = documentService.findById(id);
+		Document document =  delegate.getDocument(id);
 
 		model.addAttribute("document", document);
 
