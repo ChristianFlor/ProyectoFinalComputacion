@@ -12,6 +12,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import co.edu.icesi.model.Billofmaterial;
 import co.edu.icesi.model.Document;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productcategory;
@@ -238,4 +239,18 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 		template.delete(baseurl + "/productreviewRest/delete/" + productreview.getProductreviewid());
 	}
 
+	//BILL OF MATERIAL
+	@Override
+	public List<Billofmaterial> showBilofmaterialList() {
+		Billofmaterial[] billofmaterialarray = template.getForObject(baseurl + "/billofmaterialRest/list",
+				Billofmaterial[].class);
+		return Arrays.asList(billofmaterialarray);
+	}
+	
+	@Override
+	public Billofmaterial addBillofmaterial(Billofmaterial billofmaterial) {
+		HttpEntity<Billofmaterial> request = new HttpEntity<>(billofmaterial);
+		return template.postForObject(baseurl + "/billofmaterialRest/addbillomaterial/", request, Billofmaterial.class);
+	}
 }
+

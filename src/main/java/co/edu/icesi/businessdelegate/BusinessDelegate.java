@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.client.RestTemplate;
 
+import co.edu.icesi.model.Billofmaterial;
 import co.edu.icesi.model.Document;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productcategory;
@@ -84,4 +85,9 @@ public interface BusinessDelegate {
 	public void editProductreview(Integer id, Productreview productreview);
 
 	public void deleteProductreview(Productreview productreview);
+
+	// BILL OF MATERIAL
+	public List<Billofmaterial> showBilofmaterialList();
+
+	public Billofmaterial addBillofmaterial(Billofmaterial billofmaterial);
 }

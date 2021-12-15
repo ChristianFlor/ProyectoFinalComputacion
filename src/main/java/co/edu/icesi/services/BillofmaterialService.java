@@ -1,7 +1,6 @@
 package co.edu.icesi.services;
 
 import co.edu.icesi.model.Billofmaterial;
-import co.edu.icesi.model.Productreview;
 
 public interface BillofmaterialService {
 
