@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import co.edu.icesi.model.Document;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productcategory;
+import co.edu.icesi.model.Productreview;
 import co.edu.icesi.model.Productsubcategory;
 import co.edu.icesi.model.Productvendor;
 import co.edu.icesi.model.Transactionhistory;
@@ -116,94 +117,125 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 		return template.postForObject(baseurl + "/transactionhistoryRest/addtransactionhistory/", request,
 				Transactionhistory.class);
 	}
-	
+
 	@Override
 	public Transactionhistory getTransactionhistory(Integer id) {
 
 		return template.getForObject(baseurl + "/transactionhistoryRest/view/" + id, Transactionhistory.class);
 	}
-	
+
 	@Override
 	public void editTransactionhistory(Integer id, Transactionhistory th) {
 		HttpEntity<Transactionhistory> request = new HttpEntity<>(th);
 
 		template.put(baseurl + "/transactionhistoryRest/edit/" + id, request, Transactionhistory.class);
 	}
-	
+
 	@Override
 	public void deleteTransactionhistory(Transactionhistory th) {
 		template.delete(baseurl + "/transactionhistoryRest/delete/" + th.getTransactionid());
 	}
-	
+
 	// DOCUMENT
 	@Override
 	public List<Document> showDocumentList() {
-		Document[] documentarray = template.getForObject(baseurl + "/documentRest/list",
-				Document[].class);
+		Document[] documentarray = template.getForObject(baseurl + "/documentRest/list", Document[].class);
 		return Arrays.asList(documentarray);
 	}
-	
+
 	@Override
 	public Document addDocument(Document doc) {
 		HttpEntity<Document> request = new HttpEntity<>(doc);
-		return template.postForObject(baseurl + "/documentRest/addDocument/", request,
-				Document.class);
+		return template.postForObject(baseurl + "/documentRest/addDocument/", request, Document.class);
 	}
+
 	@Override
 	public Document getDocument(long id) {
 
 		return template.getForObject(baseurl + "/documentRest/view/" + id, Document.class);
 	}
-	
+
 	@Override
 	public void editDocument(long id, Document doc) {
 		HttpEntity<Document> request = new HttpEntity<>(doc);
 
 		template.put(baseurl + "/documentRest/edit/" + id, request, Document.class);
 	}
-	
+
 	@Override
 	public void deleteDocument(Document doc) {
 		template.delete(baseurl + "/documentRest/delete/" + doc.getDocumentnode());
 	}
-	
-	//PRODUCT VENDOR
+
+	// PRODUCT VENDOR
 	@Override
 	public List<Productvendor> showProductvendorList() {
 		Productvendor[] productvendorarray = template.getForObject(baseurl + "/productvendorRest/list",
 				Productvendor[].class);
 		return Arrays.asList(productvendorarray);
 	}
-	
+
 	@Override
 	public Productvendor addProductvendor(Productvendor pv) {
 		HttpEntity<Productvendor> request = new HttpEntity<>(pv);
-		return template.postForObject(baseurl + "/productvendorRest/addProductvendor/", request,
-				Productvendor.class);
+		return template.postForObject(baseurl + "/productvendorRest/addProductvendor/", request, Productvendor.class);
 	}
-	
+
 	@Override
 	public Productvendor getProductvendor(Integer id) {
 
 		return template.getForObject(baseurl + "/productvendorRest/view/" + id, Productvendor.class);
 	}
-	
+
 	@Override
 	public void editProductvendor(Integer id, Productvendor productvendor) {
 		HttpEntity<Productvendor> request = new HttpEntity<>(productvendor);
 
 		template.put(baseurl + "/productvendorRest/edit/" + id, request, Productvendor.class);
 	}
-	
+
 	@Override
 	public void deleteProductvendor(Productvendor productvendor) {
 		template.delete(baseurl + "/productvendorRest/delete/" + productvendor.getId());
 	}
+
 	// VENDOR
 	@Override
 	public List<Vendor> showVendorList() {
 		Vendor[] vendorarray = template.getForObject(baseurl + "/vendorRest/list", Vendor[].class);
 		return Arrays.asList(vendorarray);
+	}
+
+	// PRODUCT REVIEW
+	@Override
+	public List<Productreview> showProductreviewList() {
+		Productreview[] productvendorarray = template.getForObject(baseurl + "/productreviewRest/list",
+				Productreview[].class);
+		return Arrays.asList(productvendorarray);
+	}
+
+	@Override
+	public Productreview addProductreview(Productreview productreview) {
+		HttpEntity<Productreview> request = new HttpEntity<>(productreview);
+		return template.postForObject(baseurl + "/productreviewRest/addproductreview/", request, Productreview.class);
+	}
+
+	@Override
+	public Productreview getProductreview(Integer id) {
+
+		return template.getForObject(baseurl + "/productreviewRest/view/" + id, Productreview.class);
+	}
+
+	@Override
+	public void editProductreview(Integer id, Productreview productreview) {
+		HttpEntity<Productreview> request = new HttpEntity<>(productreview);
+
+		template.put(baseurl + "/productreviewRest/edit/" + id, request, Productreview.class);
+	}
+	
+	@Override
+	public void deleteProductreview(Productreview productreview) {
+		template.delete(baseurl + "/productreviewRest/delete/" + productreview.getProductreviewid());
 	}
 
 }

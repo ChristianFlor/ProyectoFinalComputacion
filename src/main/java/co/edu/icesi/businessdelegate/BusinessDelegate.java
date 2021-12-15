@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import co.edu.icesi.model.Document;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productcategory;
+import co.edu.icesi.model.Productreview;
 import co.edu.icesi.model.Productsubcategory;
 import co.edu.icesi.model.Productvendor;
 import co.edu.icesi.model.Transactionhistory;
@@ -73,4 +74,14 @@ public interface BusinessDelegate {
 	// VENDOR
 	public List<Vendor> showVendorList();
 
+	// PRODUCTREVIEW
+	public List<Productreview> showProductreviewList();
+
+	public Productreview addProductreview(Productreview productreview);
+
+	public Productreview getProductreview(Integer id);
+
+	public void editProductreview(Integer id, Productreview productreview);
+
+	public void deleteProductreview(Productreview productreview);
 }
