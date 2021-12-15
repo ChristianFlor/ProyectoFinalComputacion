@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productcategory;
 import co.edu.icesi.model.Productsubcategory;
+import co.edu.icesi.model.Transactionhistory;
 import co.edu.icesi.model.Unitmeasure;
 
 public interface BusinessDelegate {
@@ -23,8 +24,8 @@ public interface BusinessDelegate {
 	public void editProduct(Integer id, Product p);
 
 	public void deleteProduct(Product p);
-	
-	//PRODUCTSUBCATEGORY
+
+	// PRODUCTSUBCATEGORY
 	public List<Productsubcategory> showProductsubcategoryList();
 
 	// PRODUCTCATEGORY
@@ -33,4 +34,10 @@ public interface BusinessDelegate {
 	// UNITMEASURE
 	public List<Unitmeasure> showUnitmeasureList();
 
+	// TRANSACITONHISTORY
+	public List<Transactionhistory> showTransactionhistoryList();
+
+	public Transactionhistory addTransactionhistory(Transactionhistory th);
+
+	public Transactionhistory getTransactionhistory(Integer id);
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.icesi.dao.ProductDAO;
 import co.edu.icesi.model.Product;
+import co.edu.icesi.services.ProductService;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -25,23 +26,31 @@ public class ProductRestController {
 	@Autowired
 	ProductDAO productDAO;
 	
+	@Autowired
+	ProductService productService;
 	
 	@GetMapping("/productsRest/list")
-	public List<Product> showProductList(){
+	public Iterable<Product> showProductList(){
 		log.info("SHOW PRODUCT LIST");
-		return productDAO.findAll();
+//		return productDAO.findAll();
+		return productService.findAll();
 	}
 	
 	@GetMapping("/productsRest/view/{id}")
 	public Product viewProduct(@PathVariable("id") Integer id){
 		
-		return productDAO.findById(id);
+		return productService.findById(id);
+//		return productDAO.findById(id);
 	}
 	
     @PostMapping("/productsRest/addproduct/")
-    public Product addProduct(@RequestBody Product p) {
+    public void addProduct(@RequestBody Product product) {
         log.info("entro!");
-        return productDAO.save(p);
+        productService.saveCorrect(product,
+				product.getProductsubcategory().getProductcategory().getProductcategoryid(),
+				product.getProductsubcategory().getProductsubcategoryid(),
+				product.getUnitmeasure1().getUnitmeasurecode());
+//        return productDAO.save(p);
     }
 	
 	@PutMapping("/productsRest/edit/{id}")

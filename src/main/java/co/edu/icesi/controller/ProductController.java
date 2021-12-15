@@ -30,19 +30,19 @@ public class ProductController {
 	@Autowired
 	BusinessDelegate delegate;
 	
-	private ProductService productService;
-	private ProductCategoryService productcategoryService;
-	private ProductSubcategoryService productsubcategoryService;
-	private UnitMeasureService unitmeasureService;
+//	private ProductService productService;
+//	private ProductCategoryService productcategoryService;
+//	private ProductSubcategoryService productsubcategoryService;
+//	private UnitMeasureService unitmeasureService;
 
-	@Autowired
-	public ProductController(ProductService productService, ProductCategoryService productcategoryService,
-			ProductSubcategoryService productsubcategoryService, UnitMeasureService unitmeasureService) {
-		this.productService = productService;
-		this.productcategoryService = productcategoryService;
-		this.productsubcategoryService = productsubcategoryService;
-		this.unitmeasureService = unitmeasureService;
-	}
+//	@Autowired
+//	public ProductController(ProductService productService, ProductCategoryService productcategoryService,
+//			ProductSubcategoryService productsubcategoryService, UnitMeasureService unitmeasureService) {
+//		this.productService = productService;
+//		this.productcategoryService = productcategoryService;
+//		this.productsubcategoryService = productsubcategoryService;
+//		this.unitmeasureService = unitmeasureService;
+//	}
 
 	@GetMapping("")
 	public String index(Model model) {
@@ -73,9 +73,9 @@ public class ProductController {
 			}
 			if (result.hasErrors()) {
 				
-				model.addAttribute("productsubcategories", productsubcategoryService.findAll());
-				model.addAttribute("productcategories", productcategoryService.findAll());
-				model.addAttribute("unitmeasures", unitmeasureService.findAll());
+				model.addAttribute("productcategories", delegate.showProductcategoryList());
+				model.addAttribute("productsubcategories", delegate.showProductsubcategoryList());
+				model.addAttribute("unitmeasures", delegate.showUnitmeasureList());
 				return "products/edit";
 			}
 			delegate.editProduct(id,product);
@@ -119,15 +119,15 @@ public class ProductController {
 
 	@GetMapping("/delete/{id}")
 	public String deleteUser(@PathVariable("id") Integer id, Model model) {
-		Product product = productService.findById(id);
-		productService.delete(product);
-		model.addAttribute("products", productService.findAll());
+		Product product = delegate.getProduct(id);
+		delegate.deleteProduct(product);
+		model.addAttribute("products", delegate.showProductList());
 		return "products/index";
 	}
 
 	@GetMapping("/{id}")
 	public String getProduct(Model model, @PathVariable("id") Integer id) {
-		Product product = productService.findById(id);
+		Product product = delegate.getProduct(id);
 
 		model.addAttribute("product", product);
 

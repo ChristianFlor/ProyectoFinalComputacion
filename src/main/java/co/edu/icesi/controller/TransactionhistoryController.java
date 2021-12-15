@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import co.edu.icesi.businessdelegate.BusinessDelegate;
 import co.edu.icesi.model.Add;
 import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Transactionhistory;
@@ -28,6 +29,9 @@ public class TransactionhistoryController {
 	private TransactionHistoryService transactionhistoryService;
 	private ProductService productService;
 	private ProductRepositoryInterface productRepository;
+	
+	@Autowired
+	BusinessDelegate delegate;
 
 	@Autowired
 	public TransactionhistoryController(TransactionHistoryRepositoryInterface transactionhistoryRepository,
@@ -41,7 +45,7 @@ public class TransactionhistoryController {
 
 	@GetMapping("")
 	public String transactionhistoryIndex(Model model) {
-		model.addAttribute("transactionalhistories", transactionhistoryService.findAll());
+		model.addAttribute("transactionalhistories", delegate.showTransactionhistoryList());
 		return "/transaction-histories/index";
 	}
 
@@ -89,7 +93,8 @@ public class TransactionhistoryController {
 				return "/transaction-histories/add";
 			}
 			trh.setProduct(trh.getProduct());
-			transactionhistoryService.saveCorrect(trh, trh.getProduct().getProductid());
+//			transactionhistoryService.saveCorrect(trh, trh.getProduct().getProductid());
+			delegate.addTransactionhistory(trh);
 		}
 		return "redirect:/transaction-histories";
 	}
@@ -105,7 +110,7 @@ public class TransactionhistoryController {
 
 	@GetMapping("/{id}")
 	public String getProduct(Model model, @PathVariable("id") Integer id) {
-		Transactionhistory trh = transactionhistoryService.findById(id);
+		Transactionhistory trh = delegate.getTransactionhistory(id);
 
 		model.addAttribute("trh", trh);
 
