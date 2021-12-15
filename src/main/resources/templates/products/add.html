@@ -20,7 +20,7 @@
     <div class="container my-5">
         <h2>New Product</h2>
         <div>
-            <form class="container my-5" action="#" th:action="#{/products/add}" th:object="${product}" method="post">
+            <form class="container my-5" action="#" th:action="@{/products/add}" th:object="${product}" method="post">
                 <div class="form-group col-md-6">
                     <label for="productsubcategory"  class="col-form-label">Product Subcategory</label>
                     <select id="productsubcategory" th:field="*{productsubcategory}">
