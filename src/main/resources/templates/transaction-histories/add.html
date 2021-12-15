@@ -20,7 +20,7 @@
 <div class="container my-5">
     <h2>New Transaction history</h2>
     <div>
-        <form class="container my-5" action="#" th:action="#{/transaction-histories/add}" th:object="${trh}" method="post">
+        <form class="container my-5" action="#" th:action="@{/transaction-histories/add}" th:object="${trh}" method="post">
 
            <div class="form-group col-md-6">
                 <label for="product"  class="col-form-label">Product</label>

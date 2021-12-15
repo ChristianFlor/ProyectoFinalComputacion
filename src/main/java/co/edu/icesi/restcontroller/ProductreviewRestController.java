@@ -1,6 +1,7 @@
 package co.edu.icesi.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.icesi.model.Product;
 import co.edu.icesi.model.Productreview;
 import co.edu.icesi.services.ProductreviewService;
 
@@ -43,4 +43,10 @@ public class ProductreviewRestController {
 		productreviewService.editProductreview(productreview, productreview.getProduct().getProductid());
 
 	}
+	@DeleteMapping("/productreviewRest/delete/{id}")
+	public void delete(@PathVariable("id") Integer id) {
+		productreviewService.delete(productreviewService.findById(id));
+//		productDAO.delete(productDAO.findById(id));
+	}
+	
 }

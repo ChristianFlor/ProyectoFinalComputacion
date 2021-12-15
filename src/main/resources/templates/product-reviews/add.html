@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Transaction history</title>
+    <title>Procduct review</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -18,9 +18,9 @@
 </head>
 <body>
 <div class="container my-5">
-    <h2>New Transaction history</h2>
+    <h2>New Productreview</h2>
     <div>
-        <form class="container my-5" action="#" th:action="#{/transaction-histories/add}" th:object="${trh}" method="post">
+        <form class="container my-5" action="#" th:action="@{/product-reviews/add}" th:object="${productreview}" method="post">
 
            <div class="form-group col-md-6">
                 <label for="product"  class="col-form-label">Product</label>
@@ -29,21 +29,17 @@
                             th:each="prod : ${products}"
                             th:value="${prod.productid}"
                             th:text="${prod.productid + ': ' + prod.name}"
-                            th:selected="${trh.product==prod}">
+                            th:selected="${productreview.product==prod}">
                     </option>
                 </select>
                 <span th:if="${#fields.hasErrors('product')}" th:errors="*{product}" class="text-danger"></span>
             </div>
              <div class="form-group col-md-6">
-                <label for="quantity">Quantity</label>
-                <input type="number" name="quantity" id="quantity" class="form-control" th:field="*{quantity}" th:value="${trh.quantity}"/>
-                <span th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="text-danger"></span>
+                <label for="comments">Comments</label>
+                <input type="text" name="comments" id="comments" class="form-control" th:field="*{comments}" th:value="${productreview.comments}"/>
+                <span th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}" class="text-danger"></span>
             </div>
-             <div class="form-group col-md-6">
-                <label for="actual-cost">Actual cost</label>
-                <input type="number" name="actualcost" id="actualcost" class="form-control" th:field="${trh.actualcost}"/>
-                <span th:if="${#fields.hasErrors('actualcost')}" th:errors="*{actualcost}" class="text-danger"></span>
-            </div>
+          
            
             <div class="row">
                 <div class="col-md-4 mt-3">

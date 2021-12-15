@@ -99,7 +99,7 @@ public class ProductreviewController {
 		delegate.deleteProductreview(productreview);
 //		productreviewService.delete(productreview);
 		model.addAttribute("productreviews", delegate.showProductreviewList());
-		return "redirect:/productreviews";
+		return "redirect:/product-reviews";
 	}
 
 	@GetMapping("/{id}")

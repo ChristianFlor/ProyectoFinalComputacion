@@ -44,6 +44,7 @@ public class ProductreviewServiceImpl implements ProductreviewService {
 		}else {
 			Productreview prEntity = pr;
 			prEntity.setProduct(product);
+			prEntity.setComments(productreview.getComments());
 			productreviewDAO.update(prEntity);
 		}
 	}

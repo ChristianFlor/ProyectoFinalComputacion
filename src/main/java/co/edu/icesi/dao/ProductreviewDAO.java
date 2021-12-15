@@ -20,12 +20,14 @@ public class ProductreviewDAO implements IProductreviewDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	@Transactional
 	@Override
 	public Productreview save(Productreview productreview) {
 		entityManager.persist(productreview);
 		return productreview;
 	}
 
+	@Transactional
 	@Override
 	public Productreview update(Productreview productreview) {
 		entityManager.merge(productreview);
